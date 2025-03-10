@@ -29,8 +29,8 @@ Thumbs.db
 .vscode/
 
 # Ignore e2e folders you mentioned
-e2e/1-getting-started/
-e2e/2-advanced-examples/
+cypress/e2e/1-getting-started/
+cypress/e2e/2-advanced-examples/
 
 # Coverage reports (if using code coverage plugins)
 coverage/
