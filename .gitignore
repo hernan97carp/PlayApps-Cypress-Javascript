@@ -3,10 +3,11 @@ cypress/screenshots/
 cypress/videos/
 cypress/downloads/
 cypress/results/
-
+cypress/e2e/1-getting-started/
+cypress/e2e/2-advanced-examples/
 # Node modules
 node_modules/
-
+basics/
 # Output from builds
 dist/
 build/

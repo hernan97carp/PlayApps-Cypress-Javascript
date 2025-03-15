@@ -19,6 +19,10 @@ env:
 jobs:
   cypress-run:
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false # Continue even if one container fails
+      matrix:
+        containers: [1, 2] # Runs 2 parallel instances
 
     steps:
       # Step 1: Checkout the repository code
@@ -50,6 +54,24 @@ jobs:
       - name: Run Prettier
         run: npm run format
 
-      # Step 6: Run Cypress tests
+      # Step 6: Start the web server (optional step for E2E testing)
+      - name: Start server
+        run: npm start &
+      
+      # Step 7: Wait for the server to be ready
+      - name: Wait for server
+        run: npx wait-on http://localhost:3000
+
+      # Step 8: Run Cypress tests
       - name: Run Cypress tests
-        run: npx cypress run
+        uses: cypress-io/github-action@v6
+        with:
+          start: npm start
+          wait-on: 'http://localhost:3000'
+          record: true
+          parallel: true
+        env:
+          CYPRESS_PROJECT_ID: ${{ secrets.CYPRESS_PROJECT_ID }} 
+          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          

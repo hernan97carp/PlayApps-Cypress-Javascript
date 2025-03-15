@@ -1,6 +1,8 @@
 const { defineConfig } = require('cypress');
+require('dotenv').config(); 
 
 module.exports = defineConfig({
+  projectId: process.env.CYPRESS_PROJECT_ID,
   e2e: {
     //baseUrl: 'https://qaplayground.dev',
     specPattern: 'cypress/e2e/**/*.{js,jsx,ts,tsx}',

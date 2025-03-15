@@ -15,6 +15,7 @@
   },
   "dependencies": {
     "cypress_project_2503": "file:",
+    "dotenv": "^16.4.7",
     "prettier": "^3.5.3"
   }
 }
