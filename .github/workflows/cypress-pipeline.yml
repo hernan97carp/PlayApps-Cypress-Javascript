@@ -1,0 +1,55 @@
+name: Cypress CI Pipeline
+
+# Trigger the workflow on push or pull request events
+on:
+  push:
+    branches:
+      - main
+      - develop
+  pull_request:
+    branches:
+      - main
+      - develop
+
+# Define environment variables
+env:
+  NODE_VERSION: '16' # Specify the Node.js version
+
+# Define the job
+jobs:
+  cypress-run:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Checkout the repository code
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Step 2: Set up Node.js environment
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      # Step 3: Cache node modules to speed up builds
+      - name: Cache node modules
+        id: cache-npm
+        uses: actions/cache@v3
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      # Step 4: Install dependencies
+      - name: Install dependencies
+        if: steps.cache-npm.outputs.cache-hit != 'true'
+        run: npm install
+
+      # Step 5: Run Prettier to format code
+      - name: Run Prettier
+        run: npm run format
+
+      # Step 6: Run Cypress tests
+      - name: Run Cypress tests
+        run: npx cypress run
