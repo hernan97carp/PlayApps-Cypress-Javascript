@@ -4,7 +4,7 @@ describe('Verify Account Test', () => {
   const verifyAccountPage = new VerifyAccountPage();
 
   beforeEach(() => {
-   cy.goto(verifyAccountPage.url)
+    cy.goto(verifyAccountPage.url);
   });
 
   it('Fill all the inputs and verify success message with green background', () => {

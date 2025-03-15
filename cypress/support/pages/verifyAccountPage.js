@@ -7,7 +7,6 @@ export class VerifyAccountPage {
     this.confirmButton = () => cy.get('.info.success');
   }
 
-
   fillInputs() {
     this.inputs().each(($input) => {
       cy.wrap($input).type('9');

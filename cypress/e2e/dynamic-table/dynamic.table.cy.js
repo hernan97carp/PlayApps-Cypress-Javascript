@@ -4,7 +4,7 @@ describe('Testing Dynamic Table mini application', () => {
   const dynamicTablePage = new DynamicTablePage();
 
   beforeEach(() => {
-    cy.goto(dynamicTablePage.url)
+    cy.goto(dynamicTablePage.url);
   });
 
   it('TC:01 Find the username Peter Parker', () => {
