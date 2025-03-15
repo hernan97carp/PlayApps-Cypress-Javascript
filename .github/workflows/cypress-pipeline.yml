@@ -14,6 +14,8 @@ on:
 # Define environment variables
 env:
   NODE_VERSION: '16' # Specify the Node.js version
+  CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }} # Añade la clave como variable de entorno
+  CYPRESS_PROJECT_ID: ${{ secrets.CYPRESS_PROJECT_ID }}
 
 # Define the job
 jobs:
@@ -50,6 +52,6 @@ jobs:
       - name: Run Prettier
         run: npm run format
 
-      # Step 6: Run Cypress tests
+      # Step 6: Run Cypress tests with Cypress Cloud
       - name: Run Cypress tests
-        run: npx cypress run
+        run: npx cypress run --record --key $CYPRESS_RECORD_KEY
